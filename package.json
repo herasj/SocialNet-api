@@ -1,0 +1,22 @@
+{
+  "name": "socialn_back",
+  "version": "1.0.0",
+  "description": "Social network",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/herasj/Proyecto_UsoCarruso.git"
+  },
+  "author": "herasj",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/herasj/Proyecto_UsoCarruso/issues"
+  },
+  "homepage": "https://github.com/herasj/Proyecto_UsoCarruso#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
