@@ -21,13 +21,29 @@ module.exports = {
                 FROM dbo.users p
                 WHERE p.email='${email}' AND p.password='${pass}'`;
 			let pool = await sql.connect(config);
+			let result1 = await pool.request()
+				.query(query) //Query
+				const envio = result1.recordset
+				if (envio.length <= 1) throw 'Not Found' //Not Found
+				return envio
+		} catch (err) {
+			throw new Error(err);
+		}
+	},
+	token: async ({email, token}) => {
+		try {
+			const query = `SELECT p.token
+                FROM dbo.users p
+                WHERE p.email='${email}' AND p.token='${token}'`;
+			let pool = await sql.connect(config);
 			let result1 = await pool.request().query(query); //Query
 			const envio = result1.recordset;
 			console.log(envio);
-			if (envio.length == 0) throw 404; //Not Found
+			if (envio.length <= 1) throw 'Not Found'; //Not Found
 			return envio;
 		} catch (err) {
 			throw new Error(err);
 		}
 	}
+	
 };
