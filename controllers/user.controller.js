@@ -27,12 +27,14 @@ module.exports = {
                 let result1 = await pool.request()
                     .query(query) //Query
                     const envio = result1.recordset;
-                    console.log("Resuelto");
+                    console.log(envio);
+                    if(envio.length==0) throw 404 //Not Found
                     return envio;
+
                 
                 
             } catch (err) {
-                return err;
+                throw new Error(err);
             } 
     }
 }
