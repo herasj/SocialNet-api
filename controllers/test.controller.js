@@ -11,7 +11,6 @@ module.exports = {
         try {
             let pool = await sql.connect(config)
             let result1 = await pool.request()
-                // .input('input_parameter', sql.Int, value)
                 .query('select * from dbo.users') //Query
             console.dir(result1)
         } catch (err) {
