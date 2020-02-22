@@ -11,7 +11,7 @@ CREATE TABLE [users]
  [phone]    varchar(50) NOT NULL ,
  [birthday] date NOT NULL ,
  [email]    varchar(50) NOT NULL ,
- [token]    varchar(50) NULL ,
+ [token]    varchar(250) NULL ,
  [profile]  varbinary(150) NULL ,
  [password] varchar(20) NOT NULL ,
 
@@ -73,6 +73,7 @@ CREATE TABLE [posts]
  [imgurl]  varbinary(150) NULL ,
  [userid]  int NOT NULL ,
  [date]    date NOT NULL ,
+ [likes]   int NOT NULL,
 
 
  CONSTRAINT [PK_posts] PRIMARY KEY CLUSTERED ([id] ASC),

@@ -16,7 +16,11 @@ router.get(
 		res.send('User index');
 	}
 );
-
+router.post('/token',(req,res) => {
+  const rToken = req.body.token;
+  
+}
+)
 router.post('/auth', function(req, res) {
 	const user = { email: req.body.email, pass: req.body.pass }; //Get info from body
   const access_token = authjwt.accesstokenexp(user); //Generate a token with exp
