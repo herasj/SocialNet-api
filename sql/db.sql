@@ -11,7 +11,7 @@ CREATE TABLE [users]
  [phone]    varchar(50) NOT NULL ,
  [birthday] date NOT NULL ,
  [email]    varchar(50) NOT NULL ,
- [token]    varchar(250) NULL ,
+ [token]    varchar(300) NULL ,
  [profile]  varbinary(150) NULL ,
  [password] varchar(20) NOT NULL ,
 
