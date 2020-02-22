@@ -15,5 +15,17 @@ module.exports = {
 			req.user = user;
 			next(); // Success, move to next middleware
 		});
-	}
+    },
+    accesstoken: (user) => {
+        return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+    },
+    accesstokenexp: (user) => {
+        return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET,{expiresIn: '15s'});
+    },
+    refreshtoken: (user) => {
+        return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
+    }
+    
+    
+    
 };
