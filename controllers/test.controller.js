@@ -9,7 +9,6 @@ module.exports = {
 
     create: async () => {
         try {
-            console.table(config)
             let pool = await sql.connect(config)
             let result1 = await pool.request()
                 // .input('input_parameter', sql.Int, value)
