@@ -1,16 +1,9 @@
-module.exports = errorHandler;
-
-function errorHandler(err, req, res, next) {
-    if (typeof (err) === 'string') {
-        // custom application error
-        return res.status(400).json({ message: err });
-    }
-
-    if (err.name === 'UnauthorizedError') {
-        // jwt authentication error
-        return res.status(401).json({ message: 'Invalid Token' });
-    }
-
-    // default to 500 server error
-    return res.status(500).json({ message: err.message });
+const jwt = require('jsonwebtoken');
+const express = require('express');
+require('dotenv').config(); //.ENV
+function authToken (req,res, next){
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1]; //If there's authHeader  //Bearer(0) TOKEN(1)
+    if (token == null) return res.sendStatus(401); // If there's no token then return ERROR 401
+    jwt.verify(token,process.env.ACCESS_TOKEN_SECRET);
 }
