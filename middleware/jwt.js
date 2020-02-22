@@ -20,7 +20,7 @@ module.exports = {
         return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
     },
     accesstokenexp: (user) => {
-        return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET,{expiresIn: '15s'});
+        return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET,{expiresIn: '45s'});
     },
     refreshtoken: (user) => {
         return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
