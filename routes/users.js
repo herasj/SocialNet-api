@@ -16,15 +16,14 @@ router.get(
 		res.send('User index');
 	}
 );
-router.post('/token',(req,res) => {
+router.post('/token', (req, res) => {
   const rToken = req.body.token;
-  
-}
-)
+  if(rToken==null) return res.sendStatus(401); //Verify refresh token
+});
 router.post('/auth', function(req, res) {
 	const user = { email: req.body.email, pass: req.body.pass }; //Get info from body
-  const access_token = authjwt.accesstokenexp(user); //Generate a token with exp
-  const refresh_token = authjwt.refreshtoken(user); //Generate a refresh token
+	const access_token = authjwt.accesstokenexp(user); //Generate a token with exp
+	const refresh_token = authjwt.refreshtoken(user); //Generate a refresh token
 	controller
 		.auth(user)
 		.then(() => {
@@ -37,10 +36,38 @@ router.post('/auth', function(req, res) {
 });
 
 router.post('/register', function(req, res, next) {
-	const user = req.body;
-	const retorno = controller.create(user);
+	const user = {
+		name: req.body.name,
+		last: req.body.last,
+		phone: req.body.phone,
+		birth: req.body.birth,
+		email: req.body.email,
+		pass: req.body.pass
+	};
+
+	const access_token = authjwt.accesstokenexp(user); //Generate a token with exp
+	const refresh_token = authjwt.refreshtoken(user); //Generate a refresh token
+
+	const veruser = {
+		name: req.body.name,
+		last: req.body.last,
+		phone: req.body.phone,
+		birth: req.body.birth,
+		email: req.body.email,
+		token: refresh_token,
+		pass: req.body.pass
+	};
+	controller
+		.create(veruser)
+		.then(() => {
+			res.json({ access_token: access_token, refresh_token: refresh_token }); //After the user is verified the token is sent
+		})
+		.catch((err) => {
+			console.error(err); //If there's not user then
+			res.sendStatus(err);
+		});
+
 	console.table(req.body);
-	res.send(retorno);
 });
 
 module.exports = router;

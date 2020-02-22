@@ -3,18 +3,16 @@ const sql = require('mssql');
 const config = require('../config/database');
 
 module.exports = {
-	create: async ({ name, last, phone, birth, email, pass }) => {
-		const query = `INSERT INTO dbo.users (name, lastname, phone, birthday, email ,password) 
-        VALUES('${name}','${last}','${phone}','${birth}','${email}','${pass}');`;
+	create: async ({ name, last, phone, birth, email, pass, token }) => {
+		const query = `INSERT INTO dbo.users (name, lastname, phone, birthday, token, email, password) 
+        VALUES('${name}','${last}','${phone}','${birth}','${token}','${email}','${pass}');`;
 
 		try {
 			let pool = await sql.connect(config);
 			let result1 = await pool.request().query(query); //Query
 			return result1;
 		} catch (err) {
-			console.error(err);
-			return err;
-			// ... error checks
+			throw new Error(err);
 		}
 	},
 	auth: async ({ email, pass }) => {
