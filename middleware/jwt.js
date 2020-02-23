@@ -20,7 +20,7 @@ module.exports = {
         return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
     },
     accesstokenexp: (user) => {
-        return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET,{expiresIn: '45s'});
+        return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET,{expiresIn: '30m'});
     },
     refreshtoken: (user) => {
         return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
@@ -33,7 +33,7 @@ module.exports = {
             const val = {email: user.email};
             console.dir(val)
             if (err) return res.sendStatus(403); //Invalid token
-            const access_token = jwt.sign(val, process.env.ACCESS_TOKEN_SECRET,{expiresIn: '45s'});
+            const access_token = jwt.sign(val, process.env.ACCESS_TOKEN_SECRET,{expiresIn: '30m'});
             res.json({ access_token: access_token});
         }
         );
