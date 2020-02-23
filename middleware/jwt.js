@@ -24,6 +24,19 @@ module.exports = {
     },
     refreshtoken: (user) => {
         return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
+    },
+    
+    verifytoken: (token,res) => {
+        jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+            console.log("Verificando refresh")
+            console.dir(user);
+            const val = {email: user.email};
+            console.dir(val)
+            if (err) return res.sendStatus(403); //Invalid token
+            const access_token = jwt.sign(val, process.env.ACCESS_TOKEN_SECRET,{expiresIn: '45s'});
+            res.json({ access_token: access_token});
+        }
+        );
     }
     
     

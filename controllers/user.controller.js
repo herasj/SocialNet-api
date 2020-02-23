@@ -15,16 +15,32 @@ module.exports = {
 			throw new Error(err);
 		}
 	},
-	auth: async ({ email, pass }) => {
+	auth: async ({ email, pass, token }) => {
 		try {
 			const query = `SELECT p.name,p.lastname,p.birthday,p.phone,p.profile
-                FROM dbo.users p
-                WHERE p.email='${email}' AND p.password='${pass}'`;
+				FROM dbo.users p
+				WHERE p.email='${email}' AND p.password='${pass}'
+			UPDATE dbo.users
+				SET token = '${token}'
+				WHERE email='${email}' AND password='${pass}'`;
 			let pool = await sql.connect(config);
 			let result1 = await pool.request().query(query); //Query
 			const envio = result1.recordset;
-			console.log(envio);
-			if (envio.length == 0) throw 404; //Not Found
+			if (envio.length == 0) throw 401; //Not Found
+			return envio;
+		} catch (err) {
+			throw new Error(err);
+		}
+	},
+	token: async ({email, token}) => {
+		try {
+			const query = `SELECT p.token
+                FROM dbo.users p
+                WHERE p.email='${email}' AND p.token='${token}'`;
+			let pool = await sql.connect(config);
+			let result1 = await pool.request().query(query); //Query
+			const envio = result1.recordset;
+			if (envio.length = 0) throw 401; //Not Found
 			return envio;
 		} catch (err) {
 			throw new Error(err);

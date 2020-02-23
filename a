@@ -1,0 +1,137 @@
+[33mcommit 5245f9cdbc247878a85302ff86ebc8d133318c16[m[33m ([m[1;36mHEAD -> [m[1;32mbackEnd[m[33m, [m[1;31morigin/backEnd[m[33m)[m
+Author: herasj <herasj@uninorte.edu.co>
+Date:   Sat Feb 22 16:50:20 2020 -0500
+
+    Security issue
+
+[33mcommit 51444343daf3e164f64b89bb756d30875f494822[m
+Author: herasj <herasj@uninorte.edu.co>
+Date:   Sat Feb 22 16:40:59 2020 -0500
+
+    revision
+
+[33mcommit 25781a1c35b17fbfb8724da906272a5ecc5d40a7[m
+Author: herasj <herasj@uninorte.edu.co>
+Date:   Sat Feb 22 14:46:15 2020 -0500
+
+    Refresh Token
+
+[33mcommit a915bdfee0fdc9340d1c9c28c7aac9975efb15dd[m
+Author: herasj <herasj@uninorte.edu.co>
+Date:   Sat Feb 22 14:33:12 2020 -0500
+
+    fix drop
+
+[33mcommit eb7daf8deee5fc6cf57c267c2d6ba4024e7895ad[m
+Author: herasj <herasj@uninorte.edu.co>
+Date:   Sat Feb 22 14:30:45 2020 -0500
+
+    drop and create
+
+[33mcommit 3e93cbaa1b9347c892b072b0ea0b057bebbb6429[m
+Author: herasj <herasj@uninorte.edu.co>
+Date:   Sat Feb 22 14:07:23 2020 -0500
+
+    Exp fix
+
+[33mcommit dfde113d813916b094919221d7a322876543e7d2[m
+Author: herasj <herasj@uninorte.edu.co>
+Date:   Sat Feb 22 14:04:19 2020 -0500
+
+    Refresh token
+
+[33mcommit f0fbf2722dbf54087ac4285a1768f8b2e7dbc862[m
+Author: herasj <herasj@uninorte.edu.co>
+Date:   Sat Feb 22 13:46:59 2020 -0500
+
+    Jwt auth
+
+[33mcommit 87be0a4a75ae25ed6b1601acd7002c4ea37ed760[m
+Author: herasj <herasj@uninorte.edu.co>
+Date:   Sat Feb 22 13:32:24 2020 -0500
+
+    404 Not Found
+
+[33mcommit 0b1ae804d658503146e651831b98ee252f09d509[m
+Author: herasj <herasj@uninorte.edu.co>
+Date:   Sat Feb 22 12:55:14 2020 -0500
+
+    Verify user
+
+[33mcommit da7d1248b25147cbc178ca1ea0c1b4b4bdfe3de9[m
+Author: herasj <herasj@uninorte.edu.co>
+Date:   Sat Feb 22 12:47:26 2020 -0500
+
+    Verify TOKEN
+
+[33mcommit 57c9076296800f6d97d0aa6bec6ecd741203d5d2[m
+Author: herasj <herasj@uninorte.edu.co>
+Date:   Sat Feb 22 12:35:44 2020 -0500
+
+    Auth token
+
+[33mcommit 39e98efdb8079767773defd863d4aefdce054bc9[m
+Author: herasj <herasj@uninorte.edu.co>
+Date:   Fri Feb 21 23:37:39 2020 -0500
+
+    Login and Register --No JWT
+
+[33mcommit f92cc1d3de8859ec79d39717d5479adc92f91917[m
+Author: herasj <herasj@uninorte.edu.co>
+Date:   Fri Feb 21 21:35:34 2020 -0500
+
+    Secret
+
+[33mcommit 8f7ad8897da779f26357cd76f730a5aa77a269b9[m
+Author: herasj <herasj@uninorte.edu.co>
+Date:   Wed Feb 19 10:50:01 2020 -0500
+
+    Prueba
+
+[33mcommit c606ceb3de4d0203553650e5069e7672b9839de8[m
+Author: herasj <juanp231100@gmail.com>
+Date:   Wed Feb 19 10:48:01 2020 -0500
+
+    DB connection
+
+[33mcommit de71bdba71a63009bf5fbc9fd5342c0dbee8f8da[m
+Author: herasj <juanp231100@gmail.com>
+Date:   Tue Feb 18 22:55:43 2020 -0500
+
+    Prueba
+
+[33mcommit 20b0d11e781ff6073eb5e955c44652c6d444c842[m
+Author: Juan Rambal <juanp231100@gmail.com>
+Date:   Tue Feb 18 22:17:01 2020 -0500
+
+    Sql Script
+
+[33mcommit a4e8d8c184152e75aeee07c9eca095631ef0fc13[m
+Author: Juan Rambal <juanp231100@gmail.com>
+Date:   Mon Feb 17 01:18:05 2020 -0500
+
+    mssql driver and body-parser
+
+[33mcommit ce8b14b18461c80ca3d190009f45d1cbf7f50315[m
+Author: Juan Rambal <juanp231100@gmail.com>
+Date:   Sun Feb 16 22:53:30 2020 -0500
+
+    middleware
+
+[33mcommit cda20f0b3cf76712830bfa0138b1fd0c0b5d12e2[m
+Author: Juan Rambal <juanp231100@gmail.com>
+Date:   Sun Feb 16 21:02:21 2020 -0500
+
+    Estructura
+
+[33mcommit 46d7600713bf084c56521c115a2d35299e209c53[m
+Author: Juan Rambal <juanp231100@gmail.com>
+Date:   Sun Feb 16 20:48:35 2020 -0500
+
+    npm init
+
+[33mcommit 48fe4665d92da8d7c43cda9c9e8d55fa5de66ded[m
+Author: Juan Rambal <herasj@uninorte.edu.co>
+Date:   Sun Feb 16 20:16:14 2020 -0500
+
+    Initial commit
