@@ -1,7 +1,8 @@
 'use strict';
 const sql = require('mssql');
 const config = require('../config/database');
-
+const NotFound = new Error('No results for that query');
+NotFound.isOperational = true;
 module.exports = {
 	create: async ({ name, last, phone, birth, email, pass, token }) => {
 		const query = `INSERT INTO dbo.users (name, lastname, phone, birthday, token, email, password) 
@@ -26,7 +27,7 @@ module.exports = {
 			let pool = await sql.connect(config);
 			let result1 = await pool.request().query(query); //Query
 			const envio = result1.recordset;
-			if (envio.length == 0) throw 401; //Not Found
+			if (envio.length == 0) throw NotFound; //Not Found
 			return envio;
 		} catch (err) {
 			throw new Error(err);
@@ -40,7 +41,7 @@ module.exports = {
 			let pool = await sql.connect(config);
 			let result1 = await pool.request().query(query); //Query
 			const envio = result1.recordset;
-			if (envio.length = 0) throw 401; //Not Found
+			if (envio.length = 0) throw NotFound; //Not Found
 			return envio;
 		} catch (err) {
 			throw new Error(err);

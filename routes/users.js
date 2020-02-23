@@ -25,7 +25,7 @@ router.post('/token', (req, res) => {
 			authjwt.verifytoken(rToken, res);
 		})
 		.catch((err) => {
-			res.send(err)
+			res.json({error: err});
 		});
 });
 router.post('/auth', function(req, res) {
@@ -39,7 +39,7 @@ router.post('/auth', function(req, res) {
 		})
 		.catch((err) => {
 			console.error(err); //If there's not user then
-			res.sendStatus(401);
+			res.json({error: err});
 		});
 });
 
@@ -64,7 +64,7 @@ router.post('/register', function(req, res, next) {
 		})
 		.catch((err) => {
 			console.error(err); //If there's not user then
-			res.sendStatus(401);
+			res.json({error: err});
 		});
 
 	console.table(req.body);
