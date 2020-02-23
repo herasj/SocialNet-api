@@ -33,11 +33,11 @@ module.exports = {
 			throw new Error(err);
 		}
 	},
-	token: async ({email, token}) => {
+	token: async ({token}) => {
 		try {
 			const query = `SELECT p.token
                 FROM dbo.users p
-                WHERE p.email='${email}' AND p.token='${token}'`;
+                WHERE p.token='${token}'`;
 			let pool = await sql.connect(config);
 			let result1 = await pool.request().query(query); //Query
 			const envio = result1.recordset;
@@ -46,5 +46,17 @@ module.exports = {
 		} catch (err) {
 			throw new Error(err);
 		}
+	},
+	logout: ({token}) => {
+		try {
+			const query = `UPDATE dbo.users
+			SET token = NULL
+			WHERE token='${token}'`;
+			let pool = await sql.connect(config);
+			let result1 = await pool.request().query(query); //Query
+		} catch (err) {
+			throw new Error(err)
+		}
 	}
+	
 };

@@ -3,7 +3,7 @@ require('dotenv').config(); //.ENV
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const controller = require('../controllers/user.controller');
+const controller = require('../controllers/auth.controller');
 const authjwt = require('../middleware/jwt');
 /* GET users listing. */
 router.get(
@@ -13,24 +13,24 @@ router.get(
 		authjwt.verify(req, res, next); //Verify token
 	},
 	function(req, res) {
-		res.send('User index');
+		res.send('Correctamente Autenticado');
 	}
 );
 router.post('/token', (req, res) => {
 	const rToken = req.body.token;
 	if (rToken == null) return res.sendStatus(401); //Verify refresh token
 	controller
-		.token({ email: req.body.email, token: rToken })
+		.token({ token: rToken })
 		.then(() => {
 			authjwt.verifytoken(rToken, res);
 		})
 		.catch((err) => {
-			res.json({error: err});
+			res.json({ error: err });
 		});
 });
-router.post('/auth', function(req, res) {
-	const access_token = authjwt.accesstokenexp({email: req.body.email}); //Generate a token with exp
-	const refresh_token = authjwt.refreshtoken({email: req.body.email}); //Generate a refresh token
+router.post('/login', function(req, res) {
+	const access_token = authjwt.accesstokenexp({ email: req.body.email }); //Generate a token with exp
+	const refresh_token = authjwt.refreshtoken({ email: req.body.email }); //Generate a refresh token
 	const user = { email: req.body.email, pass: req.body.pass, token: refresh_token }; //Get info from body
 	controller
 		.auth(user)
@@ -39,14 +39,13 @@ router.post('/auth', function(req, res) {
 		})
 		.catch((err) => {
 			console.error(err); //If there's not user then
-			res.json({error: err});
+			res.json({ error: err });
 		});
 });
 
 router.post('/register', function(req, res, next) {
-
-	const access_token = authjwt.accesstokenexp({email: req.body.email}); //Generate a token with exp
-	const refresh_token = authjwt.refreshtoken({email: req.body.email}); //Generate a refresh token
+	const access_token = authjwt.accesstokenexp({ email: req.body.email }); //Generate a token with exp
+	const refresh_token = authjwt.refreshtoken({ email: req.body.email }); //Generate a refresh token
 
 	const veruser = {
 		name: req.body.name,
@@ -64,10 +63,21 @@ router.post('/register', function(req, res, next) {
 		})
 		.catch((err) => {
 			console.error(err); //If there's not user then
-			res.json({error: err});
+			res.json({ error: err });
 		});
 
 	console.table(req.body);
 });
 
+router.delete('/logout', (req, res) => {
+	controller
+		.logout(req.body.token)
+		.then(() => {
+			res.sendStatus(204);
+		})
+		.catch((err) => {
+			console.error(err);
+			res.sendStatus(400); //Bad Request
+		});
+});
 module.exports = router;
