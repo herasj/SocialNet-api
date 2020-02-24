@@ -3,7 +3,7 @@ require('dotenv').config(); //.ENV
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-var verifier = require('email-verify');
+const validator = require("email-validator"); 
 const controller = require('../controllers/auth.controller');
 const authjwt = require('../middleware/jwt');
 /* GET users listing. */
@@ -45,9 +45,8 @@ router.post('/login', function(req, res) {
 });
 
 router.post('/register', function(req, res, next) {
-	verifier.verify(req.body.email,(err, info) => {
-		if (err){
-			console.error(err); //Invalid Email
+		if (validator.validate(req.body.email)==false){
+			console.error("Invalid Email"); //Invalid Email
 			res.sendStatus(400);
 		}
 		else{
@@ -75,8 +74,6 @@ router.post('/register', function(req, res, next) {
 
 			console.table(req.body);
 		}
-	}
-	)
 	
 });
 
