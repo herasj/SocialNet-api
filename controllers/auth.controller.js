@@ -47,7 +47,7 @@ module.exports = {
 			throw new Error(err);
 		}
 	},
-	logout: ({token}) => {
+	logout: async ({token}) => {
 		try {
 			const query = `UPDATE dbo.users
 			SET token = NULL

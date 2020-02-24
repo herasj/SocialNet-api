@@ -3,6 +3,7 @@ require('dotenv').config(); //.ENV
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
+var verifier = require('email-verify');
 const controller = require('../controllers/auth.controller');
 const authjwt = require('../middleware/jwt');
 /* GET users listing. */
@@ -44,29 +45,39 @@ router.post('/login', function(req, res) {
 });
 
 router.post('/register', function(req, res, next) {
-	const access_token = authjwt.accesstokenexp({ email: req.body.email }); //Generate a token with exp
-	const refresh_token = authjwt.refreshtoken({ email: req.body.email }); //Generate a refresh token
+	verifier.verify(req.body.email,(err, info) => {
+		if (err){
+			console.error(err); //Invalid Email
+			res.sendStatus(400);
+		}
+		else{
+			const access_token = authjwt.accesstokenexp({ email: req.body.email }); //Generate a token with exp
+			const refresh_token = authjwt.refreshtoken({ email: req.body.email }); //Generate a refresh token
 
-	const veruser = {
-		name: req.body.name,
-		last: req.body.last,
-		phone: req.body.phone,
-		birth: req.body.birth,
-		email: req.body.email,
-		token: refresh_token,
-		pass: req.body.pass
-	};
-	controller
-		.create(veruser)
-		.then(() => {
-			res.json({ access_token: access_token, refresh_token: refresh_token }); //After the user is verified the token is sent
-		})
-		.catch((err) => {
-			console.error(err); //If there's not user then
-			res.json({ error: err });
-		});
+			const veruser = {
+				name: req.body.name,
+				last: req.body.last,
+				phone: req.body.phone,
+				birth: req.body.birth,
+				email: req.body.email,
+				token: refresh_token,
+				pass: req.body.pass
+			};
+			controller
+				.create(veruser)
+				.then(() => {
+					res.json({ access_token: access_token, refresh_token: refresh_token }); //After the user is verified the token is sent
+				})
+				.catch((err) => {
+					console.error(err); //If there's not user then
+					res.json({ error: err });
+				});
 
-	console.table(req.body);
+			console.table(req.body);
+		}
+	}
+	)
+	
 });
 
 router.delete('/logout', (req, res) => {
