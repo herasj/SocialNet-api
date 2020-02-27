@@ -57,6 +57,20 @@ module.exports = {
 		} catch (err) {
 			throw new Error(err)
 		}
+	},
+	forgot: async ({email}) => {
+		try {
+			const query = `SELECT p.password
+			FROM dbo.users p
+			WHERE p.email='${email}'`;
+			let pool = await sql.connect(config);
+			let result1 = await pool.request().query(query); //Query
+			const envio = result1.recordset;
+			return envio;
+		} catch (err) {
+			throw new Error(err);
+		}
 	}
+	
 	
 };

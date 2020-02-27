@@ -3,8 +3,9 @@ require('dotenv').config(); //.ENV
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const validator = require("email-validator"); 
+const validator = require('email-validator');
 const controller = require('../controllers/auth.controller');
+const mail = require('../services/mail');
 const authjwt = require('../middleware/jwt');
 /* GET users listing. */
 router.get(
@@ -45,36 +46,34 @@ router.post('/login', function(req, res) {
 });
 
 router.post('/register', function(req, res, next) {
-		if (validator.validate(req.body.email)==false){
-			console.error("Invalid Email"); //Invalid Email
-			res.sendStatus(400);
-		}
-		else{
-			const access_token = authjwt.accesstokenexp({ email: req.body.email }); //Generate a token with exp
-			const refresh_token = authjwt.refreshtoken({ email: req.body.email }); //Generate a refresh token
+	if (validator.validate(req.body.email) == false) {
+		console.error('Invalid Email'); //Invalid Email
+		res.sendStatus(400);
+	} else {
+		const access_token = authjwt.accesstokenexp({ email: req.body.email }); //Generate a token with exp
+		const refresh_token = authjwt.refreshtoken({ email: req.body.email }); //Generate a refresh token
 
-			const veruser = {
-				name: req.body.name,
-				last: req.body.last,
-				phone: req.body.phone,
-				birth: req.body.birth,
-				email: req.body.email,
-				token: refresh_token,
-				pass: req.body.pass
-			};
-			controller
-				.create(veruser)
-				.then(() => {
-					res.json({ access_token: access_token, refresh_token: refresh_token }); //After the user is verified the token is sent
-				})
-				.catch((err) => {
-					console.error(err); //If there's not user then
-					res.json({ error: err });
-				});
+		const veruser = {
+			name: req.body.name,
+			last: req.body.last,
+			phone: req.body.phone,
+			birth: req.body.birth,
+			email: req.body.email,
+			token: refresh_token,
+			pass: req.body.pass
+		};
+		controller
+			.create(veruser)
+			.then(() => {
+				res.json({ access_token: access_token, refresh_token: refresh_token }); //After the user is verified the token is sent
+			})
+			.catch((err) => {
+				console.error(err); //If there's not user then
+				res.json({ error: err });
+			});
 
-			console.table(req.body);
-		}
-	
+		console.table(req.body);
+	}
 });
 
 router.delete('/logout', (req, res) => {
@@ -86,6 +85,27 @@ router.delete('/logout', (req, res) => {
 		.catch((err) => {
 			console.error(err);
 			res.sendStatus(400); //Bad Request
+		});
+});
+
+router.post('/forgot', (req, res) => {
+	const email = req.body.email;
+	controller
+		.forgot({ email: email })
+		.then(function (output) {
+			mail.send(email,output[0].password).then(() => {
+				res.sendStatus(204);
+			}
+			)
+			.catch((err) => {
+				console.error(err);
+			}
+			)
+			
+		})
+		.catch((err) => {
+			console.error(err);
+			res.sendStatus(400);
 		});
 });
 module.exports = router;
