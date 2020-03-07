@@ -14,17 +14,17 @@
 
  ## Auth
 
-**Login**
+### **Login**
 *Send email and password through body*
-**Route:**
+### **Route:**
 > POST /auth/login
 
-**Response**
+### **Response**
 Refresh and Access Tokens
 
    <br>
 
-**Register**
+### **Register**
 *Send the following parameters through body*
 
     {
@@ -35,44 +35,44 @@ Refresh and Access Tokens
 	"email":"email@email.com",
 	"pass":"123123123123"
 }
-**Route:**
+
+### **Route:**
 > POST /auth/register
->
-**Response**
+
+### **Response**
 Refresh and Access Tokens
 
    <br>
 
-**Logout**
+### **Logout**
 *Delete the user token from db
 Send Refresh Token through body*
-**Route:**
+
+### **Route:**
 > DEL /auth/logout
 
-**Response**
+### **Response**
 HTTP 204 Status
 
    <br>
    
-**Verify Access Token**
+### **Verify Access Token**
 *Send request to verify the access token*
 *Header: Content-Type: Authorization, Data: Bearer* **Access Token**
-**Route:**
+
+### **Route:**
 > GET /auth/verify
 
-**Response**
+### **Response**
 HTTP 204 Status
 
    <br>
 
-**Get Access Token**
+### **Get Access Token**
 *Send Refresh Token through body to obtain a new Access_Token*
-**Route:**
+
+### **Route:**
 > POST /auth/token
 
-**Response**
+### **Response**
 New Access Token
->
-
-> 
-
