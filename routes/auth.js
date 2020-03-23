@@ -10,14 +10,15 @@ const authjwt = require('../middleware/jwt');
 /* GET users listing. */
 router.get(
 	'/verify',
+	authjwt.verify,
 	(req, res, next) => {
 		//Middleware
-		authjwt.verify(req, res, next); //Verify token
 	},
 	function(req, res) {
 		res.send('Correctamente Autenticado');
 	}
 );
+
 router.post('/token', (req, res) => {
 	const rToken = req.body.token;
 	if (rToken == null) return res.sendStatus(401); //Verify refresh token
@@ -30,6 +31,7 @@ router.post('/token', (req, res) => {
 			res.json({ error: err });
 		});
 });
+
 router.post('/login', function(req, res) {
 	const access_token = authjwt.accesstokenexp({ email: req.body.email }); //Generate a token with exp
 	const refresh_token = authjwt.refreshtoken({ email: req.body.email }); //Generate a refresh token
@@ -92,16 +94,15 @@ router.post('/forgot', (req, res) => {
 	const email = req.body.email;
 	controller
 		.forgot({ email: email })
-		.then(function (output) {
-			mail.send(email,output[0].password).then(() => {
-				res.sendStatus(204);
-			}
-			)
-			.catch((err) => {
-				console.error(err);
-			}
-			)
-			
+		.then(function(output) {
+			mail
+				.send(email, output[0].password)
+				.then(() => {
+					res.sendStatus(204);
+				})
+				.catch((err) => {
+					console.error(err);
+				});
 		})
 		.catch((err) => {
 			console.error(err);

@@ -10,8 +10,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json()); //Body-Parser
-app.use(express.urlencoded({     // to support URL-encoded bodies
-    extended: true
-  })); 
-app.use(cors({origin: "*"}));
-module.exports = app;   
+app.use(
+	express.urlencoded({
+		// to support URL-encoded bodies
+		extended: true
+	})
+);
+app.use(cors({ origin: '*' }));
+module.exports = app;
